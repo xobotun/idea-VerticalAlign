@@ -9,7 +9,15 @@
     Create a multicursor, press `Alt+Shift+T` and cursors will be aligned with the rightmost one.
     ]]></description>
 
-    <change-notes>Initial release of the plugin. It just got released, why 40 chars is a minimum changelog?</change-notes>
+    <change-notes><![CDATA[
+    Removed selection behaviour as it seemed useless for me.<br/>
+    <br/>
+    Fixed minor compatibility issues:<br/>
+    • default change-notes in default build.gradle,<br/>
+    • added a dependency on the most generic IntelliJ package.<br/>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
 
     <actions>
         <action id="VerticalAlign.VerticalAlignAction" class="com.xobotun.idea.valign.VerticalAlignToRightAction" text="Align Vertically" description="Vertically aligns several multicursors to match rightmost one's position">

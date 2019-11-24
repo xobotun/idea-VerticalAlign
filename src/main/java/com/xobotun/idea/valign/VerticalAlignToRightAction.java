@@ -50,7 +50,7 @@ public class VerticalAlignToRightAction extends AnAction {
                 .forEach(caret -> {
                     int difference = maxPosition - caret.getVisualPosition().getColumn();
                     caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference));
-                    caret.moveCaretRelatively(difference,0,true,false);
+                    caret.moveCaretRelatively(difference,0,false,false);
                 })
         );
     }
