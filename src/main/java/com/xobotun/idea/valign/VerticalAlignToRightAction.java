@@ -22,9 +22,6 @@ public class VerticalAlignToRightAction extends AnAction {
         if (project == null)
             return;
 
-//        FileEditorManager manager = FileEditorManager.getInstance(project);
-//        FileEditor editor = manager.getSelectedEditor();
-
         Caret holder = e.getDataContext().getData(CommonDataKeys.CARET);
 
         if (holder == null) {
@@ -47,15 +44,15 @@ public class VerticalAlignToRightAction extends AnAction {
 
         showInfo(String.format("Found %d carets, moving to postition: %d", carets.size(), maxPosition), project);
 
-        carets.stream()
-              .filter(Caret::isValid)
-              .forEach(caret -> {
-                  int difference = maxPosition - caret.getVisualPosition().getColumn();
-                  WriteCommandAction.runWriteCommandAction(project, () ->
-                      caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference))
-                  );
-                  caret.moveCaretRelatively(difference,0,true,false);
-              });
+        WriteCommandAction.runWriteCommandAction(project, () ->
+            carets.stream()
+                .filter(Caret::isValid)
+                .forEach(caret -> {
+                    int difference = maxPosition - caret.getVisualPosition().getColumn();
+                    caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference));
+                    caret.moveCaretRelatively(difference,0,true,false);
+                })
+        );
     }
 
     private void showInfo(String info, Project project) {
