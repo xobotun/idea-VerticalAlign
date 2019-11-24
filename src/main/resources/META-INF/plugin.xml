@@ -1,0 +1,25 @@
+<idea-plugin>
+    <id>com.xobotun.idea.VerticalAlign</id>
+    <name>Vertical Align</name>
+    <vendor email="support@yourcompany.com" url="http://www.yourcompany.com">YourCompany</vendor>
+
+    <description><![CDATA[
+    Allows you to indent multiplie cursors with spaces.<br/>
+    Create a multicursor, press `Alt+Shift+T` and cursors will be aligned with the rightmost one.
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <add-to-group group-id="MainMenu" anchor="last"/>
+        <action id="com.xobotun.idea.valign.VerticalAlignAction" class="com.xobotun.idea.valign.VerticalAlignAction" text="Align vertically" description="Vertically aligns several multicursors to match rightmost one's position."/>
+    </actions>
+</idea-plugin>
