@@ -25,24 +25,24 @@ public class VerticalAlignToRightAction extends AnAction {
         Caret holder = e.getDataContext().getData(CommonDataKeys.CARET);
 
         if (holder == null) {
-            showInfo("No carets found. Do you have a file open?", project);
+            showInfo("No carets found. Do you have a file opened?", project);
             return;
         }
 
         if (!holder.getEditor().getDocument().isWritable()) {
-            showInfo("Current open document is not writable", project);
+            showInfo("The current opened document is not writable", project);
             return;
         }
 
         if (holder.getCaretModel().getCaretCount() <= 1) {
-            showInfo("You need more than one caret to use vertical align feature", project);
+            showInfo("You need more than one caret to use the vertical align feature", project);
             return;
         }
 
         List<Caret> carets = holder.getCaretModel().getAllCarets();
         final int maxPosition = carets.stream().map(caret -> caret.getVisualPosition().getColumn()).max(Integer::compareTo).orElse(0);
 
-        showInfo(String.format("Found %d carets, moving to postition: %d", carets.size(), maxPosition), project);
+        showInfo(String.format("Found %d carets, moving to the column %d", carets.size(), maxPosition), project);
 
         WriteCommandAction.runWriteCommandAction(project, () ->
             carets.stream()
@@ -61,7 +61,7 @@ public class VerticalAlignToRightAction extends AnAction {
         if (statusBar != null) {
             statusBar.setInfo(info);
         } else {
-            Messages.showMessageDialog(project, info, "This should be in progress bar, but you don't have any. Is ever that possible?!", Messages.getInformationIcon());
+            Messages.showMessageDialog(project, info, "This should be in the progress bar, but you don't have any. Is ever that possible?!", Messages.getInformationIcon());
         }
     }
 }
