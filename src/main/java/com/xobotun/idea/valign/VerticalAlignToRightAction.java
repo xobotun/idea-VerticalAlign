@@ -1,10 +1,10 @@
 package com.xobotun.idea.valign;
 
-import com.intellij.openapi.actionSystem.*;
+import com.intellij.openapi.actionSystem.AnAction;
+import com.intellij.openapi.actionSystem.AnActionEvent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Caret;
-import com.intellij.openapi.fileEditor.FileEditor;
-import com.intellij.openapi.fileEditor.FileEditorManager;
-import com.intellij.openapi.fileEditor.FileEditorStateLevel;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.StatusBar;
@@ -28,7 +28,7 @@ public class VerticalAlignToRightAction extends AnAction {
         Caret holder = e.getDataContext().getData(CommonDataKeys.CARET);
 
         if (holder == null) {
-            showInfo("No carets found. Do you have a project open?", project);
+            showInfo("No carets found. Do you have a file open?", project);
             return;
         }
 
@@ -51,7 +51,10 @@ public class VerticalAlignToRightAction extends AnAction {
               .filter(Caret::isValid)
               .forEach(caret -> {
                   int difference = maxPosition - caret.getVisualPosition().getColumn();
-                  caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference));
+                  WriteCommandAction.runWriteCommandAction(project, () ->
+                      caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference))
+                  );
+                  caret.moveCaretRelatively(difference,0,true,false);
               });
     }
 
