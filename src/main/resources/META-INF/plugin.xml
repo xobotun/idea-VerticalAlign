@@ -10,14 +10,14 @@
     ]]></description>
 
     <change-notes><![CDATA[
-    Removed selection behaviour as it seemed useless for me.<br/>
-    <br/>
-    Fixed minor compatibility issues:<br/>
-    • default change-notes in default build.gradle,<br/>
-    • added a dependency on the most generic IntelliJ package.<br/>
+    • Fixed a bug resulting in an exception when there were more than two carets on the same line.<br/>
+    • Updated plugin.xml to make the plugin available in all IDEA builds since 2019.2 (build 192).<br/>
+    • Fixed an issue where carets sometimes were not vertically aligned after plugin usage.<br/>
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
+
+    <idea-version since-build="192"/>
 
     <actions>
         <action id="VerticalAlign.VerticalAlignAction" class="com.xobotun.idea.valign.VerticalAlignToRightAction" text="Align Vertically" description="Vertically aligns several multicursors to match rightmost one's position">

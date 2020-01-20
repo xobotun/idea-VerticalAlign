@@ -48,9 +48,12 @@ public class VerticalAlignToRightAction extends AnAction {
             carets.stream()
                 .filter(Caret::isValid)
                 .forEach(caret -> {
-                    int difference = maxPosition - caret.getVisualPosition().getColumn();
+                    int difference = getPositionDifference(maxPosition, caret);
+                    if (difference <= 0) return;
+
                     caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference));
-                    caret.moveCaretRelatively(difference,0,false,false);
+                    // Sometimes carets are moved automatically, sometimes – not. Recalculate difference again after spaces were added.
+                    caret.moveCaretRelatively(getPositionDifference(maxPosition, caret),0,false,false);
                 })
         );
     }
@@ -63,5 +66,9 @@ public class VerticalAlignToRightAction extends AnAction {
         } else {
             Messages.showMessageDialog(project, info, "This should be in the progress bar, but you don't have any. Is ever that possible?!", Messages.getInformationIcon());
         }
+    }
+
+    private int getPositionDifference(int maxPosition, Caret caret) {
+        return maxPosition - caret.getVisualPosition().getColumn();
     }
 }
