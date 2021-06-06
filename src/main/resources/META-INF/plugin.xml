@@ -5,14 +5,37 @@
     <vendor email="idea_plugin@xobotun.com" url="https://xobotun.com">Xobotun</vendor>
 
     <description><![CDATA[
-    Allows you to indent multiplie cursors with spaces.<br/>
-    Create a multicursor, press `Alt+Shift+T` and cursors will be aligned with the rightmost one.
+    Allows you to indent multiple cursors with spaces.<br/>
+    Create a multicursor, press <span style="font-family: monospace">Alt+Shift+T</span> and cursors will be aligned with the rightmost one.<br/>
+    <br/>
+    <span style="color: #555555">What a multicursor is and how to use it:</span> <a href="https://www.jetbrains.com/help/idea/multicursor.html">IDEA documentation</a><br/>
+    <br/>
+    <img src="https://plugins.jetbrains.com/files/13382/screenshot_20540.png" alt="GIF that shows the plugin in action"/>
+    <br/>
     ]]></description>
+<!--    More images, if needed: -->
+<!--    <img src="https://plugins.jetbrains.com/files/13382/screenshot_20539.png" alt="Before Alt+Shift+T">-->
+<!--    <img src="https://plugins.jetbrains.com/files/13382/screenshot_20538.png" alt="After Alt+Shift+T">-->
 
     <change-notes><![CDATA[
+    1.0.3:<br/>
+    • Added an animated gif to this description sourced from the main intellij site. If it goes down, there'd be worse problems than not being able to view the gif.<br/>
+    • Restored this changlog to show fixes of earlier version. Just why not?<br/>
+    <br/>
+    1.0.2:<br/>
     • Fixed a bug resulting in an exception when there were more than two carets on the same line.<br/>
     • Updated plugin.xml to make the plugin available in all IDEA builds since 2019.2 (build 192).<br/>
     • Fixed an issue where carets sometimes were not vertically aligned after plugin usage.<br/>
+    <br/>
+    1.0.1:<br/>
+        Removed selection behaviour as it seemed useless for me.<br/>
+    <br/>
+    Fixed minor compatibility issues:<br/>
+    • default change-notes in default build.gradle,<br/>
+    • added a dependency on the most generic IntelliJ package.<br/>
+    <br/>
+    1.0.0:<br/>
+        Initial release of the plugin. It just got released, why 40 chars is a minimum changelog?
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
