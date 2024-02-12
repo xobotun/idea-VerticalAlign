@@ -18,6 +18,10 @@
 <!--    <img src="https://plugins.jetbrains.com/files/13382/screenshot_20538.png" alt="After Alt+Shift+T">-->
 
     <change-notes><![CDATA[
+    1.0.4:<br/>
+    • Switched to LogicalPosition of a caret, instead of VisualPosition. Thanks, Marius Albrecht!<br/>
+      Old-style visual position switch is retained in settings.<br/>
+    <br/>
     1.0.3:<br/>
     • Added an animated gif to this description sourced from the main intellij site. If it goes down, there'd be worse problems than not being able to view the gif.<br/>
     • Restored this changlog to show fixes of earlier version. Just why not?<br/>

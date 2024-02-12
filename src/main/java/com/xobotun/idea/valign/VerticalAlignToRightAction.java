@@ -40,7 +40,7 @@ public class VerticalAlignToRightAction extends AnAction {
         }
 
         List<Caret> carets = holder.getCaretModel().getAllCarets();
-        final int maxPosition = carets.stream().map(caret -> caret.getVisualPosition().getColumn()).max(Integer::compareTo).orElse(0);
+        final int maxPosition = carets.stream().map(caret -> caret.getLogicalPosition().column).max(Integer::compareTo).orElse(0);
 
         showInfo(String.format("Found %d carets, moving to the column %d", carets.size(), maxPosition), project);
 
@@ -69,6 +69,6 @@ public class VerticalAlignToRightAction extends AnAction {
     }
 
     private int getPositionDifference(int maxPosition, Caret caret) {
-        return maxPosition - caret.getVisualPosition().getColumn();
+        return maxPosition - caret.getLogicalPosition().column;
     }
 }
