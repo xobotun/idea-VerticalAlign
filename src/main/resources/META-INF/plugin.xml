@@ -52,4 +52,14 @@
         </action>
     </actions>
 
+    <extensions defaultExtensionNs="com.intellij">
+        <applicationService
+                serviceImplementation="com.xobotun.idea.valign.settings.SettingsState"/>
+        <applicationConfigurable
+                parentId="tools"
+                instance="com.xobotun.idea.valign.settings.SettingsConfigurable"
+                id="com.xobotun.idea.valign.settings.SettingsConfigurable"
+                displayName="Vertical Align"/>
+    </extensions>
+
 </idea-plugin>

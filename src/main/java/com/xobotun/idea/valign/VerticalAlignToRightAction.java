@@ -9,9 +9,11 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.StatusBar;
 import com.intellij.openapi.wm.WindowManager;
+import com.xobotun.idea.valign.settings.SettingsState;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class VerticalAlignToRightAction extends AnAction {
     private static final String SPACE = " ";
@@ -39,8 +41,10 @@ public class VerticalAlignToRightAction extends AnAction {
             return;
         }
 
+        var columnGetter = getColumnGetter();
+
         List<Caret> carets = holder.getCaretModel().getAllCarets();
-        final int maxPosition = carets.stream().map(caret -> caret.getLogicalPosition().column).max(Integer::compareTo).orElse(0);
+        final int maxPosition = carets.stream().map(columnGetter).max(Integer::compareTo).orElse(0);
 
         showInfo(String.format("Found %d carets, moving to the column %d", carets.size(), maxPosition), project);
 
@@ -48,14 +52,22 @@ public class VerticalAlignToRightAction extends AnAction {
             carets.stream()
                 .filter(Caret::isValid)
                 .forEach(caret -> {
-                    int difference = getPositionDifference(maxPosition, caret);
+                    int difference = getPositionDifference(maxPosition, caret, columnGetter);
                     if (difference <= 0) return;
 
                     caret.getEditor().getDocument().insertString(caret.getOffset(), SPACE.repeat(difference));
                     // Sometimes carets are moved automatically, sometimes – not. Recalculate difference again after spaces were added.
-                    caret.moveCaretRelatively(getPositionDifference(maxPosition, caret),0,false,false);
+                    caret.moveCaretRelatively(getPositionDifference(maxPosition, caret, columnGetter),0,false,false);
                 })
         );
+    }
+
+    private Function<Caret, Integer> getColumnGetter() {
+        if (SettingsState.getInstance().useVisualPosition) {
+            return c -> c.getVisualPosition().column;
+        } else {
+            return c -> c.getLogicalPosition().column;
+        }
     }
 
     private void showInfo(String info, Project project) {
@@ -68,7 +80,7 @@ public class VerticalAlignToRightAction extends AnAction {
         }
     }
 
-    private int getPositionDifference(int maxPosition, Caret caret) {
-        return maxPosition - caret.getLogicalPosition().column;
+    private int getPositionDifference(int maxPosition, Caret caret, Function<Caret, Integer> columnGetter) {
+        return maxPosition - columnGetter.apply(caret);
     }
 }
